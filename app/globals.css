@@ -12,3 +12,5 @@
 .table-panel td small{font-size:13px;margin-top:5px}
 .table-panel .task-id{font-size:12px;padding:6px 9px}
 .table-panel .status-select{font-size:14px;padding:8px 26px 8px 12px}
+.table-panel td b{font-size:24px!important}
+.table-panel .task-id{font-size:17px!important}

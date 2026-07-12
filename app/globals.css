@@ -18,3 +18,9 @@
 .phase-row b{font-size:18px!important}
 .phase-row span,.phase-row small{font-size:14px!important}
 .phase-row{padding:16px 0!important}
+.attention h4{font-size:17px!important}
+.task-mini{padding:16px 0!important}
+.task-mini b{font-size:18px!important}
+.task-mini small{font-size:14px!important}
+.task-mini .task-id{font-size:13px!important;padding:7px 9px!important}
+.task-mini .status-select{font-size:15px!important;padding:9px 28px 9px 14px!important}

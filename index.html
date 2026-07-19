@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#082b59">
+  <meta name="description" content="Bilingual supplier daily report and E&M written reply dashboard">
+  <title>Daily Report Reply Hub | 施工日报回复看板</title>
+  <link rel="stylesheet" href="/assets/app.css">
+</head>
+<body>
+  <header class="topbar">
+    <button class="brand" data-view="dashboard"><span class="brand-mark">DR</span><span><b data-i18n="app">Daily Report Reply Hub</b><small data-i18n="tagline">Supplier → E&M reply → traceable record</small></span></button>
+    <nav>
+      <button class="nav-btn active" data-view="dashboard"><span>▦</span><i data-i18n="dashboard">Dashboard</i></button>
+      <button class="nav-btn" data-view="records"><span>▤</span><i data-i18n="records">Records</i></button>
+      <button class="nav-btn" data-open-submit><span>＋</span><i data-i18n="submit">Upload report</i></button>
+    </nav>
+    <div class="language"><button data-lang="en" class="active">EN</button><button data-lang="cn">中文</button></div>
+    <div class="user"><span>EM</span><b data-i18n="desk">E&M Reply Desk</b></div>
+  </header>
+
+  <main>
+    <section id="dashboard" class="view active">
+      <div class="hero"><div><small>OCL · E&M PROJECT CONTROL</small><h1 data-i18n="boardTitle">Daily report control board</h1><p data-i18n="boardSub">Every report receives a written response, clear ownership and a permanent project record.</p></div><button class="primary" data-open-submit>＋ <span data-i18n="submit">Upload report</span></button></div>
+      <div class="metrics">
+        <article><span class="metric-icon amber">◷</span><div><small data-i18n="pending">Awaiting E&M</small><b id="metric-pending">0</b><p data-i18n="within24">Reply within 24 hours</p></div></article>
+        <article><span class="metric-icon red">!</span><div><small data-i18n="overdue">Overdue</small><b id="metric-overdue">0</b><p data-i18n="priority">Priority escalation required</p></div></article>
+        <article><span class="metric-icon green">✓</span><div><small data-i18n="replied">Replied</small><b id="metric-replied">0</b><p data-i18n="written">Written project records</p></div></article>
+        <article><span class="metric-icon blue">↗</span><div><small data-i18n="rate">Response rate</small><b id="metric-rate">0%</b><p data-i18n="allReports">Across all daily reports</p></div></article>
+      </div>
+      <section class="panel flow-panel"><div class="panel-title"><div><small>PDCA</small><h2 data-i18n="flow">Closed-loop workflow</h2></div><div class="assurance"><span data-i18n="documented">Documented</span><span data-i18n="traceable">Traceable</span><span data-i18n="bilingual">Bilingual</span></div></div><div class="flow"><div><span>▤</span><b data-i18n="supplierSubmitted">Supplier submitted</b><small id="flow-total">0 reports</small></div><i>→</i><div><span>◎</span><b data-i18n="reviewed">E&M reviewed</b><small id="flow-reviewed">0 reports</small></div><i>→</i><div><span>⚙</span><b data-i18n="actionRecorded">Action recorded</b><small id="flow-actions">0 reports</small></div><i>→</i><div><span>✓</span><b data-i18n="closed">Closed & traceable</b><small id="flow-closed">0 reports</small></div></div></section>
+      <section class="panel"><div class="panel-title"><div><h2 data-i18n="kanban">Daily report Kanban</h2><p data-i18n="kanbanSub">Supplier submissions and E&M response status</p></div><button class="text-btn" data-view="records"><span data-i18n="allRecords">All records</span> →</button></div><div id="kanban" class="kanban"></div></section>
+    </section>
+
+    <section id="records" class="view">
+      <div class="records-head"><div><small>PROJECT RECORD</small><h1 data-i18n="records">Records</h1></div><button class="primary" data-open-submit>＋ <span data-i18n="submit">Upload report</span></button></div>
+      <section class="panel records-panel"><div class="records-tools"><label>⌕<input id="search" data-i18n-placeholder="search" placeholder="Search report, supplier or activity…"></label><div id="filters"><button class="active" data-filter="all" data-i18n="all">All</button><button data-filter="pending" data-i18n="pending">Awaiting E&M</button><button data-filter="replied" data-i18n="replied">Replied</button><button data-filter="overdue" data-i18n="overdue">Overdue</button></div></div><div class="table-wrap"><table><thead><tr><th data-i18n="reportNo">Report</th><th data-i18n="date">Date</th><th data-i18n="supplier">Supplier</th><th data-i18n="activity">Activity</th><th data-i18n="progress">Progress</th><th data-i18n="status">Status</th><th></th></tr></thead><tbody id="records-body"></tbody></table></div></section>
+    </section>
+  </main>
+
+  <dialog id="submit-dialog"><form id="submit-form"><header><div><small>SUPPLIER PORTAL</small><h2 data-i18n="supplierReport">Supplier daily report</h2><p data-i18n="supplierHelp">Submit once. E&M replies in the same record.</p></div><button type="button" class="close" data-close>×</button></header><div class="form-grid">
+    <label><span data-i18n="date">Date</span><input type="date" name="reportDate" required></label>
+    <label class="wide"><span data-i18n="project">Project</span><input name="projectName" value="OCL Automated Conveyor Installation" required></label>
+    <label><span data-i18n="supplier">Supplier</span><input name="supplier" required></label>
+    <label><span data-i18n="activity">Activity</span><input name="activity" required></label>
+    <label><span data-i18n="location">Location</span><input name="location" required></label>
+    <label><span data-i18n="submittedBy">Submitted by</span><input name="submittedBy" required></label>
+    <label><span data-i18n="workforce">Workforce</span><input type="number" min="0" name="workforce" value="0"></label>
+    <label><span data-i18n="weather">Weather</span><select name="weather"><option>Clear</option><option>Cloudy</option><option>Rain</option><option>Indoor</option></select></label>
+    <label><span><i data-i18n="planned">Planned</i> (%)</span><input type="number" min="0" max="100" name="plannedProgress" value="0" required></label>
+    <label><span><i data-i18n="actual">Actual</i> (%)</span><input type="number" min="0" max="100" name="actualProgress" value="0" required></label>
+    <label class="full"><span data-i18n="summary">Daily work summary</span><textarea rows="3" name="summary" required></textarea></label>
+    <label class="full"><span data-i18n="issues">Problems, risks and impact</span><textarea rows="2" name="issues"></textarea></label>
+    <label class="full"><span data-i18n="support">Support requested from E&M</span><textarea rows="2" name="supportNeeded"></textarea></label>
+    <label class="full upload" id="upload-box" tabindex="0"><input id="attachment-input" type="file" name="attachment" accept="image/*,.heic,.heif,.pdf,.doc,.docx,.xls,.xlsx,.jpg,.jpeg,.png" aria-describedby="attachment-help"><b id="upload-icon">⇧</b><span id="attachment-label" data-i18n="attachment">Click to select report / photo (optional, max 4 MB)</span><small id="attachment-help">PDF · DOCX · XLSX · JPG · PNG · HEIC · HEIF</small></label>
+  </div><footer><button type="button" class="secondary" data-close data-i18n="cancel">Cancel</button><button class="primary" type="submit">✓ <span data-i18n="submitReport">Submit daily report</span></button></footer></form></dialog>
+
+  <dialog id="detail-dialog"><section id="detail-content"></section></dialog>
+  <dialog id="undo-dialog"><form id="undo-form"><header><div><small>E&M ADMIN CONTROL</small><h2 data-i18n="undoTitle">Undo completed reply</h2><p data-i18n="undoHelp">Enter the E&M administrator password to return this report to the reply queue.</p></div><button type="button" class="close" data-close>×</button></header><input type="hidden" name="id"><div class="undo-body"><div class="undo-target"><small data-i18n="reportNo">Report</small><strong id="undo-report-number"></strong></div><label><b data-i18n="password">Administrator password</b><input type="password" name="password" autocomplete="current-password" required></label></div><footer><button type="button" class="secondary" data-close data-i18n="cancel">Cancel</button><button class="danger-btn" type="submit">↶ <span data-i18n="confirmUndo">Confirm undo</span></button></footer></form></dialog>
+  <dialog id="delete-dialog"><form id="delete-form"><header><div><small>E&M ADMIN CONTROL</small><h2 data-i18n="deleteTitle">Permanently delete report</h2><p data-i18n="deleteHelp">Enter the E&M administrator password to permanently delete this report, its reply history and attachment. This cannot be undone.</p></div><button type="button" class="close" data-close>×</button></header><input type="hidden" name="id"><div class="undo-body"><div class="delete-target"><small data-i18n="reportNo">Report</small><strong id="delete-report-number"></strong></div><label><b data-i18n="password">Administrator password</b><input type="password" name="password" autocomplete="current-password" required></label></div><footer><button type="button" class="secondary" data-close data-i18n="cancel">Cancel</button><button class="danger-btn" type="submit">✕ <span data-i18n="confirmDelete">Permanently delete</span></button></footer></form></dialog>
+  <dialog id="reply-dialog"><form id="reply-form"><header><div><small>E&M PROJECT RECORD</small><h2 data-i18n="replyTitle">E&M written reply</h2><p data-i18n="sixRequired">Complete all six written response points.</p></div><button type="button" class="close" data-close>×</button></header><input type="hidden" name="id"><div class="reply-body"><div class="ack"><span>✓</span><div><b data-i18n="point1">1. Receipt & review confirmation</b><p data-i18n="ackText">Report received and reviewed.</p></div></div><button type="button" id="smart-draft" class="draft">✦ <span data-i18n="smart">Create easy draft</span></button>
+    <label><b data-i18n="point2">2. Actual vs planned progress</b><textarea name="progress" rows="2" required></textarea></label>
+    <label><b data-i18n="point3">3. Issues, risks & impact</b><textarea name="risks" rows="2" required></textarea></label>
+    <label><b data-i18n="point4">4. Action / corrective action</b><textarea name="action" rows="2" required></textarea></label>
+    <label><b data-i18n="point5">5. Delay & recovery plan / ETA</b><textarea name="recovery" rows="2" required></textarea></label>
+    <label><b data-i18n="point6">6. Support required</b><textarea name="replySupport" rows="2" required></textarea></label>
+    <div class="two"><label><b data-i18n="replyBy">Reply by</b><input name="repliedBy" required></label><label><b data-i18n="role">Position / role</b><input name="repliedRole" value="E&M Manager" required></label></div>
+  </div><footer><button type="button" class="secondary" data-close data-i18n="cancel">Cancel</button><button class="primary" type="submit">✓ <span data-i18n="saveReply">Save written reply</span></button></footer></form></dialog>
+
+  <div id="toast" role="status"></div>
+  <footer class="site-footer"><b>Daily Report Reply Hub</b><span data-i18n="core">Documented · Traceable · Verifiable</span><small>Netlify Edition</small></footer>
+  <script type="module" src="/assets/app.js"></script>
+</body>
+</html>

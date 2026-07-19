@@ -28,3 +28,5 @@ The Records table shows **Undo completion / 取消完成** beside every complete
 Every report row also shows **Delete / 删除**. Deleting requires the same administrator password and permanently removes the report, reply history, attachment, and any previous archive copy. This action cannot be undone.
 
 The report detail window also includes a red **Permanently delete report / 永久删除报告** button. After password confirmation, the detail closes, the Records view refreshes, and the deleted report no longer appears. The user can then upload a corrected replacement report.
+
+This release uses versioned asset URLs and no-cache response headers so browsers do not keep an older interface after a Netlify deployment.
